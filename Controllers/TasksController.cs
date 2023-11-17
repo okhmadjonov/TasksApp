@@ -16,6 +16,17 @@ namespace TasksControllerApp.Controllers
             _context = context;
         }
 
+        // New Task List
+
+        public  ActionResult TasksNewList()
+        {
+            var tasks =  _context.Tasks.ToList();
+
+            return View(tasks);
+        }
+
+
+
         // GET: Task
         public IActionResult Index(int page = 1)
         {
@@ -58,6 +69,8 @@ namespace TasksControllerApp.Controllers
 
         public IActionResult Create(TaskItem task)
         {
+            task.DueDate = task.DueDate.ToUniversalTime();
+
             if (ModelState.IsValid)
             {
                 _context.Tasks.Add(task);

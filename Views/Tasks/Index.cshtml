@@ -6,6 +6,12 @@
 
 <div class="container">
     <h2>Task List</h2>
+    <br />
+    <br />
+    <a class="btn btn-success" type="submit" asp-controller="Tasks" asp-action="Create">Create Task</a>
+    <a class="btn btn-warning" asp-controller="Tasks" asp-action="TasksNewList" >New Tasks List</a>
+    <br />
+    <br />
 
     @foreach (var task in Model.Tasks)
     {
@@ -19,6 +25,7 @@
         </div>
     }
 
+<h2>Fake Data Table For  Pagination</h2>
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             @for (int i = 1; i <= Model.PaginationInfo.TotalPages; i++)

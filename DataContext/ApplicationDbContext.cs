@@ -24,7 +24,9 @@ namespace TasksControllerApp.DataContext
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration<IdentityRole>(new RoleConfiguration(Services));
-
+            builder.Entity<TaskItem>()
+           .Property(t => t.DueDate)
+           .HasColumnType("timestamp with time zone");
         }
 
 

@@ -50,19 +50,19 @@ namespace TasksControllerApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a78a45fc-076f-4aae-8a89-bd212bf227b0",
+                            Id = "713d8604-d0f2-4462-be21-83088a9ea528",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4bb40518-0cc6-4913-affe-6b6e34ea72bb",
+                            Id = "d3f7a572-3344-4864-8a2a-73a291f10f7f",
                             Name = "MANAGER",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "05c3f6da-179d-40ef-b106-e172f3dc4186",
+                            Id = "baf67e6d-192c-4a88-aea3-6711e84e8b0d",
                             Name = "USER",
                             NormalizedName = "USER"
                         });

@@ -57,7 +57,7 @@ using (var onescope = app.Services.CreateScope())
     await Seed.SeedUsersAndRolesAsync(host);
 }
 
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
 
 
 
