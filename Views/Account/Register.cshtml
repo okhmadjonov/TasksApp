@@ -1,0 +1,64 @@
+﻿@model TasksControllerApp.Models.RegisterViewModel.RegisterViewModel
+@{
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body translate="no">
+    <form asp-controller="Account" asp-action="Register" method="post" enctype="multipart/form-data" class="col-md-6" style="margin: -50px auto;">
+        <div class="login-box">
+            <h1> <i class="fa fa-user" aria-hidden="true"></i> &nbsp;  Registration</h1>
+            @if (ViewBag.Success != null)
+            {
+                <div class="col-md-12 btn btn-danger" style="color:green;">
+                    <span>@ViewBag.Success</span>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="col-md-12 btn btn-danger" style="color:red;">
+                    <span><b>Sorry!</b> - @TempData["Error"] </span>
+                </div>
+            }
+            <div class="textbox">
+                <i class="fa fa-user" aria-hidden="true"></i>
+
+                <input asp-for="Username" type="text" id="form1-username" autocomplete="off" placeholder="Username">
+
+            </div>
+            <div class="textbox">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                <input asp-for="Email" class="form-control" autocomplete="off" placeholder="Email" />
+
+            </div>
+            <div class="textbox">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+
+                <input asp-for="Password" type="password" id="form2-password" autocomplete="off" placeholder="Password" />
+
+            </div>   <div class="textbox">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+
+                <input asp-for="ConfirmPassword" type="password" id="form3-password" autocomplete="off" placeholder="Confirm Password" />
+
+            </div>
+            <button asp-controller="Account" asp-action="Register" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
+                <i class="fa fa-sign-in mr-1"></i>  &nbsp; Register
+            </button>
+            <p class="registerLink">Do you have an account?  <a asp-controller="Account" asp-action="Login">Login here</a></p>
+        </div>
+    </form>
+</body>
+
+@if (ViewBag.Success != null)
+{
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("Login", "Account")';
+        }, 3000); // 5000 milliseconds = 5 seconds
+    </script>
+}

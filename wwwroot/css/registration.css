@@ -1,0 +1,130 @@
+﻿body {
+    height: auto;
+    width: auto;
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    background: url( https://i.ibb.co/p1t5Dpp/wd.jpg) no-repeat;
+    background-size: cover;
+}
+
+.login-box {
+    width: 500px;
+    height: 300px;
+    border-radius: 15px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 10px;
+}
+
+    .login-box h1 {
+        width: 100%;
+        float: left;
+        font-size: 30px;
+        margin-bottom: 50px;
+        padding: 13px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+.textbox {
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 8px 0;
+    cursor: pointer;
+    border-bottom: 2px solid;
+    transition: .5s ease-in-out;
+}
+
+    .textbox:hover {
+        border-bottom: 2px solid teal;
+        color: teal;
+        transition: all 0.3s ease-in-out;
+        i
+
+{
+    color: teal;
+    transition: all 0.3s ease-in-out;
+}
+
+}
+
+.textbox i {
+    color: white;
+    width: 26px;
+    float: left;
+    text-align: center;
+}
+
+
+
+.textbox input {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    color: white;
+    font-size: 18px;
+    width: 80%;
+    float: left;
+    margin: 0 10px;
+}
+
+.btn {
+    width: 100%;
+    height: 50px;
+    background: none;
+    border: 2px solid;
+    color: white;
+    padding: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 30px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .5s ease-in-out;
+}
+
+
+.registerLink a {
+    font-size: 1em;
+    text-decoration: none;
+    color: teal;
+}
+
+
+
+
+
+
+.btn:hover {
+    transition: all 1s ease-in;
+    border: 2px solid teal;
+    color: teal;
+}
+
+
+
+input::placeholder {
+    color: white;
+}
+
+
+
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5500s ease-in-out 0s;
+    -webkit-text-fill-color: white !important;
+}

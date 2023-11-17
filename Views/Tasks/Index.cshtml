@@ -1,0 +1,32 @@
+﻿@model TasksControllerApp.Models.ViewModel.TaskListViewModel
+
+@{
+    ViewData["Title"] = "Task List";
+}
+
+<div class="container">
+    <h2>Task List</h2>
+
+    @foreach (var task in Model.Tasks)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">@task.Title</h4>
+                <p class="card-text">@task.Description</p>
+                <p class="card-text"><strong>Due Date:</strong> @task.DueDate.ToString("dd/MM/yyyy")</p>
+                <p class="card-text"><strong>Status:</strong> @task.Status</p>
+            </div>
+        </div>
+    }
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.PaginationInfo.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PaginationInfo.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
