@@ -1,22 +1,163 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1B274E;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    width: 90vw;
+    overflow: hidden;
+   
+}
+
+    .main .container {
+        width: 100vw;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #6a6a6a;
+        overflow: hidden;
+        padding: 20px;
+        background: #1e2a54;
+    }
+
+    .main div table {
+        color: white;
+        width: 100%;
+        margin-top: 50px;
+        height: 100%;
+        z-index: 0 !important;
+        overflow-y: scroll;
+    }
+
+        .main div table thead {
+            font-size: 27px;
+            font-family: fangsong;
+        }
+
+        .main div table tbody {
+        }
+
+#modalDelete {
+    width: 600px;
+    height: 0px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: translatey(-50%);
+    opacity: 0;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1;
+    transition: .4s;
+    background: white;
+    display: none;
+}
+
+.openModal {
+    height: 300px !important;
+    opacity: 1 !important;
+    width: 600px;
+    position: fixed;
+    top: 35% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    opacity: 0;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1;
+    transition: .4s;
+    display: block !important;
+}
+
+.openModal2 {
+    height: 400px !important;
+    opacity: 1 !important;
+    width: 600px;
+    position: fixed;
+    top: 30% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    opacity: 0;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1;
+    transition: .4s;
+    display: block !important;
+}
+.openModal3 {
+    height: 400px !important;
+    opacity: 1 !important;
+    width: 600px;
+    position: fixed;
+    top: 30% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    opacity: 0;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1;
+    transition: .4s;
+    display: block !important;
+}
+
+.moda-footer {
+    position: absolute;
+    bottom: 10px;
+    width: 560px !important;
+}
+
+#modalUpdate {
+    display: none;
+    width: 600px;
+    height: 0px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: translatey(-50%);
+    opacity: 0;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1;
+    transition: .4s;
+    background: white;
+}
+
+#modalAdd {
+    display: none;
+    width: 600px;
+    height: 0px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: translatey(-50%);
+    opacity: 0;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1;
+    transition: .4s;
+    background: white;
+}
+
+.inp {
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    background: none;
+    border: none;
+}
+
+.add-btn {
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+form::-webkit-scrollbar {
+    display: none;
 }

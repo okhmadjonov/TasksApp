@@ -1,0 +1,11 @@
+﻿body {
+    background: #1B274E;
+}
+.table-striped {
+    margin: 50px 0 0 0;
+    overflow-y: scroll;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    color: white;
+}

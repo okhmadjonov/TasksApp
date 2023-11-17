@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using TasksControllerApp.DataContext;
 using TasksControllerApp.Models;
+using TasksControllerApp.Repositories;
 using TasksControllerApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<ITaskItemRepository, TaskItemService>();
+builder.Services.AddScoped<AuditLogService>();
 
 // Add services to the container.
 var app = builder.Build();

@@ -1,0 +1,18 @@
+﻿body {
+    background: #1B274E;
+    overflow:hidden;
+}
+
+.centered-div{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    height:100vh;
+    gap:8%;
+}
+
+button{
+    padding:15px;
+    border-radius:8px;
+    cursor:pointer;
+}

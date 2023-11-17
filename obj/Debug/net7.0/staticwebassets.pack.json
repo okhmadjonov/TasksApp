@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\TasksControllerApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\Audit.css",
+      "PackagePath": "staticwebassets\\css\\Audit.css"
+    },
+    {
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\audittype.css",
+      "PackagePath": "staticwebassets\\css\\audittype.css"
+    },
+    {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },
@@ -19,6 +27,18 @@
     {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\Table.js",
+      "PackagePath": "staticwebassets\\js\\Table.js"
+    },
+    {
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\audit.js",
+      "PackagePath": "staticwebassets\\js\\audit.js"
+    },
+    {
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\index.js",
+      "PackagePath": "staticwebassets\\js\\index.js"
     },
     {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\site.js",

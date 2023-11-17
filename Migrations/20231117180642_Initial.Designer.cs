@@ -12,7 +12,7 @@ using TasksControllerApp.DataContext;
 namespace TasksControllerApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231117135147_Initial")]
+    [Migration("20231117180642_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -53,19 +53,19 @@ namespace TasksControllerApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "713d8604-d0f2-4462-be21-83088a9ea528",
+                            Id = "25e7b66f-5932-484e-b969-016c47102c2d",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d3f7a572-3344-4864-8a2a-73a291f10f7f",
+                            Id = "9010eaf2-1ea1-4a38-b1a7-41cf8eb2b1e7",
                             Name = "MANAGER",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "baf67e6d-192c-4a88-aea3-6711e84e8b0d",
+                            Id = "2740a5bc-7f8b-4515-9bc9-606a13cad8ae",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -177,13 +177,50 @@ namespace TasksControllerApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TasksControllerApp.Models.TaskItem", b =>
+            modelBuilder.Entity("TasksControllerApp.Models.Audit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AffectedColumns")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PrimaryKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
+                });
+
+            modelBuilder.Entity("TasksControllerApp.Models.TaskItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()

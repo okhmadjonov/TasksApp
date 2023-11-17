@@ -5,7 +5,8 @@ namespace TasksControllerApp.Models
     public class TaskItem
     {
 
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+
 
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }

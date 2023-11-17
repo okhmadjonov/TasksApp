@@ -1,0 +1,264 @@
+﻿@*@model TasksControllerApp.Dto.RoleTaskDto
+
+@{
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            @if (Model != null && Model.Role != "USER")
+            {
+                <a asp-controller="Audits" asp-action="Index" class="btn btn-warning">Show Audit</a>
+                <button style="height: 38px" type="button" class="btn btn-warning" id="btn-add">Add Task</button>
+                <div id="modalAdd">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Add</h1>
+                        <button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" asp-action="Create" asp-controller="Tasks" id="productForm">
+                        <div class="modal-body">
+                            <div id="titleAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                Please enter a valid title. Allowed characters: alphanumeric and space.
+                            </div>
+
+                            <div id="quantityAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                Please enter a valid Description.
+                            </div>
+
+                            <div id="priceAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                Please enter a valid DueDate.
+                            </div>
+                            <div id="priceAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                Please enter a valid Status.
+                            </div>
+                            <div id="fieldAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                Please fill out all fields.
+                            </div>
+                            <input type="hidden" name="userId" value="@Model.Id" />
+                            <input type="hidden" name="userName" value="@Model.Name" />
+                            <input type="hidden" name="role" value="@Model.Role" />
+                            <input oninput="validateInput(this, 'titleAlert')"
+                                   onfocus="hideValidationAlert('titleAlert')" value=""
+                                   id="titleInput" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required />
+                            <div class="form-group">
+                                <label asp-for="@Model.Tasks.Tasks.TaskStatus"></label>
+                                <select asp-for="Status" asp-items="Html.GetEnumSelectList<@Model.Tasks.TaskStatus>()" class="form-control">
+                                    <option value="">Select Status</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="moda-footer">
+                            <button type="submit" class="w-100 btn btn-outline-warning">Add</button>
+                        </div>
+                    </form>
+                </div>
+            }
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-warning me-lg-auto">Log Out</a>
+            <form style="overflow-y: scroll;" class="h-100">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Quantiy
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                ToTalPrice
+                            </th>
+                            @if (Model != null && Model.Role != "USER")
+                            {
+                                <th>Action</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var iteam in Model.Tasks)
+                        {
+                            <tr>
+                                <td><input class="inp" value="@iteam.Title" name="@iteam.Title" readonly /></td>
+                                <td><input class="inp" value="@iteam.Description" name="@iteam.Description" readonly /></td>
+                                <td><input class="inp" value="@iteam.DueDate" name="@iteam.DueDate" readonly /></td>
+                                <td><input class="inp" value="@iteam.Status" name="@iteam.Status" readonly /></td>
+                                @if (Model != null && Model.Role != "USER")
+                                {
+                                    <td>
+                                        <div class="  d-flex justify-content-between align-content-center w-100">
+                                            <button style="height: 38px" type="button" class="btn btn-warning" id="btn-warning">Update</button>
+                                            <div id="modalUpdate">
+                                                <form action="@Url.Action("Update", "Product")">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Update</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div id="titleUpdateAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                                            Please enter a valid title. Allowed characters: alphanumeric and space.
+                                                        </div>
+
+                                                        <div id="quantityUpdateAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                                            Please enter a valid quantity. Allowed characters: numbers.
+                                                        </div>
+
+                                                        <div id="priceUpdateAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                                            Please enter a valid price. Allowed characters: numbers and dot for decimals.
+                                                        </div>
+                                                        <div id="fieldUpdateAlert" class="alert alert-danger" role="alert" style="display: none;">
+                                                            Please fill out all fields.
+                                                        </div>
+                                                        <input type="hidden" name="userId" value="@Model.Id" />
+                                                        <input type="hidden" name="userName" value="@Model.Name" />
+                                                        <input type="hidden" name="role" value="@Model.Role" />
+                                                        <input type="hidden" name="id" value="@iteam.Id" />
+                                                        <input oninput="validateInput(this, 'titleUpdateAlert')" onfocus="hideValidationAlert('titleUpdateAlert')" id="titleUpdateInput" value="@iteam.Name" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required />
+                                                        <input oninput="validateQuantity(this, 'quantityUpdateAlert')" onfocus="hideValidationAlert('quantityUpdateAlert')" id="quantityUpdateInput" type="text" value="@iteam.Quantity" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" required />
+                                                        <input oninput="validatePrice(this, 'priceUpdateAlert')" onfocus="hideValidationAlert('priceUpdateAlert')" id="priceUpdateInput" value="@iteam.Price" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" title="Enter a valid integer or double" required />
+                                                    </div>
+                                                    <div class="moda-footer">
+                                                        <button type="button" onclick="validateAndSubmitForm('update')" class="w-100 btn btn-outline-warning">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <form>
+                                                <input value="ADMIN" name="ADMIN" type="hidden" />
+                                                <input value="@iteam.Id" name="@iteam.Id" type="hidden" />
+                                                <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
+                                                <div id="modalDelete" class="modal" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalToggleLabel">Delete</h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <h4 class="text-dark text-center">Do you want to delete this product ? </h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input value="@Model.Id" name="userId" type="hidden" />
+                                                                <input type="hidden" name="userName" value="@Model.Name" />
+                                                                <input value="@Model.Role" name="role" type="hidden" />
+                                                                <input value="@iteam.Id" name="Id" type="hidden" />
+                                                                <button type="submit" asp-action="Delete" asp-controller="Product" class="w-100  btn btn-outline-danger"> Confirm </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js"></script>
+<script>
+    function validateTitle(inputElement, alertId) {
+        var pattern = /^[a-zA-Z0-9\s.]*$/;
+        var inputValue = inputElement.value;
+
+        if (!pattern.test(inputValue)) {
+            showValidationAlert(alertId);
+        } else {
+            hideValidationAlert(alertId);
+        }
+    }
+
+    function validateQuantity(inputElement, alertId) {
+        var pattern = /^[0-9]*$/;
+        var inputValue = inputElement.value;
+
+        if (!pattern.test(inputValue)) {
+            showValidationAlert(alertId);
+            inputElement.value = inputValue.replace(/[^0-9]/g, '');
+        } else {
+            hideValidationAlert(alertId);
+        }
+    }
+
+    function validatePrice(inputElement, alertId) {
+        var pattern = /^[0-9]*(\.[0-9]+)?$/;
+        var inputValue = inputElement.value;
+
+        if (inputValue.startsWith('.') && inputValue.length === 1) {
+            inputElement.value = '';
+            showValidationAlert(alertId);
+        } else if (!pattern.test(inputValue)) {
+            showValidationAlert(alertId);
+            inputElement.value = inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+        } else {
+            hideValidationAlert(alertId);
+        }
+    }
+
+
+    function showValidationAlert(alertId) {
+        var alertElement = document.getElementById(alertId);
+        alertElement.style.display = 'block';
+    }
+
+    function hideValidationAlert(alertId) {
+        var alertElement = document.getElementById(alertId);
+        alertElement.style.display = 'none';
+    }
+
+    function validateAndSubmitForm(operation) {
+        let title, quantity, price;
+
+        if (operation === 'create') {
+            console.log("here")
+            title = document.getElementById('titleInput').value;
+            quantity = document.getElementById('quantityInput').value;
+            price = document.getElementById('priceInput').value;
+        } else {
+            console.log("not here");
+            title = document.getElementById('titleUpdateInput').value;
+            quantity = document.getElementById('quantityUpdateInput').value;
+            price = document.getElementById('priceUpdateInput').value;
+        }
+
+        if (isFormValid(title, quantity, price)) {
+            if (operation === 'create') {
+                showValidationAlert('fieldAlert');
+            } else {
+                showValidationAlert('fieldUpdateAlert');
+            }
+        } else {
+            document.getElementById('productForm').submit();
+        }
+    }
+
+    function isFormValid(title, quantity, price) {
+        console.log('Title:', title);
+        console.log('Quantity:', quantity);
+        console.log('Price:', price);
+        return title.trim() === '' || quantity.trim() === '' || price.trim() === '';
+    }
+
+
+    document.addEventListener('focusin', function (e) {
+        hideValidationAlert('titleAlert');
+        hideValidationAlert('quantityAlert');
+        hideValidationAlert('priceAlert');
+        hideValidationAlert('fieldAlert');
+    });
+</script>*@

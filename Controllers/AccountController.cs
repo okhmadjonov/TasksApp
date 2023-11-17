@@ -42,7 +42,8 @@ namespace TasksControllerApp.Controllers
                 return View();
             }
 
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Index", "Tasks", new { role = userRole, id = userId, userName = username });
+
         }
 
         [HttpGet]

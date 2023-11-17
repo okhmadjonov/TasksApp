@@ -54,11 +54,31 @@ namespace TasksControllerApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tasks",
+                name: "AuditLogs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "text", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    TableName = table.Column<string>(type: "text", nullable: true),
+                    DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OldValues = table.Column<string>(type: "text", nullable: true),
+                    NewValues = table.Column<string>(type: "text", nullable: true),
+                    AffectedColumns = table.Column<string>(type: "text", nullable: true),
+                    PrimaryKey = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tasks",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     DueDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -180,9 +200,9 @@ namespace TasksControllerApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "713d8604-d0f2-4462-be21-83088a9ea528", null, "ADMIN", "ADMIN" },
-                    { "baf67e6d-192c-4a88-aea3-6711e84e8b0d", null, "USER", "USER" },
-                    { "d3f7a572-3344-4864-8a2a-73a291f10f7f", null, "MANAGER", "MANAGER" }
+                    { "25e7b66f-5932-484e-b969-016c47102c2d", null, "ADMIN", "ADMIN" },
+                    { "2740a5bc-7f8b-4515-9bc9-606a13cad8ae", null, "USER", "USER" },
+                    { "9010eaf2-1ea1-4a38-b1a7-41cf8eb2b1e7", null, "MANAGER", "MANAGER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -240,6 +260,9 @@ namespace TasksControllerApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AuditLogs");
 
             migrationBuilder.DropTable(
                 name: "Tasks");

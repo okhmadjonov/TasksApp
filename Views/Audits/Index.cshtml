@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TasksControllerApp.Models.Audit>
+@{
+    Layout = null;
+    ViewData["Title"] = "Audit";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/Audit.css" />
+
+<div class=" table-responsive mt-5">
+   
+    <form method="post" style="margin-left:10px" action="@Url.Action("FilterAuditLog", "Audits")">
+        <label class="text-white" for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" />
+
+        <label class="text-white" for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" />
+
+        <button type="submit">Apply Filter</button>
+    </form>
+
+    <table class="table table-striped" id="auditTable" style="width:100vw">
+        <thead>
+        <tr>
+            <th class="text-white">Id</th>
+            <th class="text-white">User</th>
+            <th class="text-white">Type</th>
+            <th class="text-white">Table Name</th>
+            <th class="text-white">Date Time</th>
+            <th class="text-white">Old values</th>
+            <th class="text-white"> New Values</th>
+            <th class="text-white">Affected Columns</th>
+        </tr>
+        </thead>
+        <tbody >
+        @foreach (var item in Model)
+        {
+            <tr data-id="@item.Id" >
+                <td class="text-white">@Html.DisplayFor(modelItem => item.Id) </td>
+                <td class="text-white"> @Html.DisplayFor(modelItem => item.UserName)</td>
+                <td class="text-white"> @Html.DisplayFor(modelItem => item.Type)</td>
+                <td class="text-white"> @Html.DisplayFor(modelItem => item.TableName)</td>
+                <td class="text-white"> @Html.DisplayFor(modelItem => item.DateTime)</td>
+                <td class="text-white"> @Html.DisplayFor(modelItem => item.OldValues)</td>
+                <td class="text-white"> @Html.DisplayFor(modelItem => item.NewValues)</td>
+                <td class="text-white"> @Html.DisplayFor(modelItem => item.AffectedColumns)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="~/js/index.js"></script>
