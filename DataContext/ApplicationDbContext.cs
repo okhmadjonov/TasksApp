@@ -1,49 +1,37 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Reflection.Emit;
+using TasksControllerApp.Entities;
 using TasksControllerApp.Models;
 
 namespace TasksControllerApp.DataContext
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IServiceProvider service) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,
+            IServiceProvider services) : base(options)
         {
-            Services = service;
+            Services = services;
         }
 
-      
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-         
-        }
+        public DbSet<TaskItem> Tasks { get; set; }
+        public DbSet<Audit> AuditLogs { get; set; }
+
+        public IServiceProvider Services { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration<IdentityRole>(new RoleConfiguration(Services));
-            builder.Entity<TaskItem>()
-           .Property(t => t.DueDate)
-           .HasColumnType("timestamp with time zone");
         }
-
-
-        public DbSet<TaskItem> Tasks { get; set; }
-        public IServiceProvider Services { get; set; }
-        public DbSet<Audit> AuditLogs { get; set; }
-
-
-        //  /********************************** AUDIT********************************************
-
         public virtual async Task<int> SaveChangesAsync(string userId, string userName)
         {
             OnBeforeSaveChanges(userId, userName);
             var result = await base.SaveChangesAsync();
             return result;
         }
-
         private void OnBeforeSaveChanges(string userId, string userName)
         {
             ChangeTracker.DetectChanges();
@@ -76,7 +64,7 @@ namespace TasksControllerApp.DataContext
                             break;
 
                         case EntityState.Deleted:
-                            auditEntry.AuditType = AuditType.Delete;
+                            auditEntry.AuditType =AuditType.Delete;
                             auditEntry.OldValues[propertyName] = property.OriginalValue!;
                             break;
 
@@ -84,7 +72,7 @@ namespace TasksControllerApp.DataContext
                             if (property.IsModified)
                             {
                                 auditEntry.ChangedColumns.Add(propertyName);
-                                auditEntry.AuditType = AuditType.Update;
+                                auditEntry.AuditType =AuditType.Update;
                                 auditEntry.OldValues[propertyName] = property.OriginalValue!;
                                 if (property.CurrentValue != null)
                                     auditEntry.NewValues[propertyName] = property.CurrentValue;
@@ -98,8 +86,6 @@ namespace TasksControllerApp.DataContext
                 AuditLogs.Add(auditEntry.ToAudit());
             }
         }
-
-
 
     }
 }

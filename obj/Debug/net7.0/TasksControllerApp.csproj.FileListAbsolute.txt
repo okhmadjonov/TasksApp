@@ -49,3 +49,5 @@ C:\Users\nemo\Desktop\TasksControllerApp\bin\Debug\net7.0\Swashbuckle.AspNetCore
 C:\Users\nemo\Desktop\TasksControllerApp\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\nemo\Desktop\TasksControllerApp\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\nemo\Desktop\TasksControllerApp\obj\Debug\net7.0\TasksControllerApp.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\nemo\Desktop\TasksControllerApp\bin\Debug\net7.0\Mvc.Grid.Core.dll
+C:\Users\nemo\Desktop\TasksControllerApp\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -5,44 +5,48 @@
       "PackagePath": "staticwebassets\\TasksControllerApp.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\Audit.css",
-      "PackagePath": "staticwebassets\\css\\Audit.css"
-    },
-    {
-      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\audittype.css",
-      "PackagePath": "staticwebassets\\css\\audittype.css"
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\audit.css",
+      "PackagePath": "staticwebassets\\css\\audit.css"
     },
     {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },
     {
-      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\registration.css",
-      "PackagePath": "staticwebassets\\css\\registration.css"
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\mvc-grid\\fonts\\grid-glyphs.woff",
+      "PackagePath": "staticwebassets\\css\\mvc-grid\\fonts\\grid-glyphs.woff"
+    },
+    {
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\mvc-grid\\mvc-grid.css",
+      "PackagePath": "staticwebassets\\css\\mvc-grid\\mvc-grid.css"
     },
     {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\favicon.ico",
-      "PackagePath": "staticwebassets\\favicon.ico"
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\task.css",
+      "PackagePath": "staticwebassets\\css\\task.css"
     },
     {
-      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\Table.js",
-      "PackagePath": "staticwebassets\\js\\Table.js"
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\audit.js",
       "PackagePath": "staticwebassets\\js\\audit.js"
     },
     {
-      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\index.js",
-      "PackagePath": "staticwebassets\\js\\index.js"
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\mvc-grid\\mvc-grid.js",
+      "PackagePath": "staticwebassets\\js\\mvc-grid\\mvc-grid.js"
     },
     {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\task.js",
+      "PackagePath": "staticwebassets\\js\\task.js"
     },
     {
       "Id": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\lib\\bootstrap\\LICENSE",

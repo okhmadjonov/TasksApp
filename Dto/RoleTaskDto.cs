@@ -1,4 +1,5 @@
-﻿using TasksControllerApp.Models;
+﻿using TasksControllerApp.Entities;
+using TasksControllerApp.Models;
 
 namespace TasksControllerApp.Dto
 {

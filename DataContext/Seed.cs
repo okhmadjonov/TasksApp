@@ -7,70 +7,81 @@ namespace TasksControllerApp.DataContext
 {
     public class Seed
     {
-        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+
+
+     
+        public static async Task SeedUsersAndRolesAsync(IServiceProvider serviceProvider)
         {
-            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                //Roles
-                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-                if (!await roleManager.RoleExistsAsync((ERole.ADMIN).ToString()))
-                    await roleManager.CreateAsync(new IdentityRole((ERole.ADMIN).ToString()));
-
-                if (!await roleManager.RoleExistsAsync((ERole.MANAGER).ToString()))
-                    await roleManager.CreateAsync(new IdentityRole((ERole.MANAGER).ToString()));
-
-                if (!await roleManager.RoleExistsAsync((ERole.USER).ToString()))
-                    await roleManager.CreateAsync(new IdentityRole((ERole.USER).ToString()));
-
-                //Users
-                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
-                string adminEmail = "admin@gmail.com";
-                string managerEmail = "manager@gmail.com";
-                var adminUser = await userManager.FindByEmailAsync(adminEmail);
-                if (adminUser == null)
+                try
                 {
-                    var newAdminUser = new User()
-                    {
-                        UserName = "admin",
-                        Email = adminEmail,
-                        EmailConfirmed = true,
+                    //Roles
+                    var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                    };
-                    var newManagerUser = new User()
-                    {
-                        UserName = "manager",
-                        Email = managerEmail,
-                        EmailConfirmed = true,
+                    await SeedRolesAsync(roleManager);
 
-                    };
-                    await userManager.CreateAsync(newAdminUser, "Admin1@1234?");
-                    await userManager.AddToRoleAsync(newAdminUser, (ERole.ADMIN).ToString());
-                    //   2
-
-                    await userManager.CreateAsync(newManagerUser, "Manager1@1234?");
-                    await userManager.AddToRoleAsync(newManagerUser, (ERole.MANAGER).ToString());
-
-
+                    //Users
+                    var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                    await SeedUsersAsync(userManager);
                 }
-
-                string appUserEmail = "user@gmail.com";
-
-                var appUser = await userManager.FindByEmailAsync(appUserEmail);
-                if (appUser == null)
+                catch (Exception ex)
                 {
-                    var newAppUser = new User()
-                    {
-                        UserName = "app-user",
-                        Email = appUserEmail,
-                        EmailConfirmed = true,
-
-                    };
-                    await userManager.CreateAsync(newAppUser, "Coding@1234?");
-                    await userManager.AddToRoleAsync(newAppUser, (ERole.USER).ToString());
+                    Console.WriteLine($"An error occurred during seeding: {ex.Message}");
                 }
-
             }
         }
+      
+        private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
+        {
+            await CreateRoleAsync(roleManager, ERole.ADMIN);
+            await CreateRoleAsync(roleManager, ERole.MANAGER);
+            await CreateRoleAsync(roleManager, ERole.USER);
+        }
+     
+        private static async Task CreateRoleAsync(RoleManager<IdentityRole> roleManager, ERole role)
+        {
+            var roleName = role.ToString();
+
+            if (!await roleManager.RoleExistsAsync(roleName))
+            {
+                await roleManager.CreateAsync(new IdentityRole(roleName));
+                Console.WriteLine($"{roleName} role created successfully.");
+            }
+        }
+     
+        private static async Task SeedUsersAsync(UserManager<User> userManager)
+        {
+            await CreateUserAsync(userManager, "admin@gmail.com", "Admin", "Admin@1234?", ERole.ADMIN);
+            await CreateUserAsync(userManager, "manager@gmail.com", "Manager", "Manager@1234?", ERole.MANAGER);
+            await CreateUserAsync(userManager, "user@gmail.com", "User", "User@1234?", ERole.USER);
+        }
+   
+        private static async Task CreateUserAsync(UserManager<User> userManager, string email, string userName, string password, ERole role)
+        {
+            var existingUser = await userManager.FindByEmailAsync(email);
+
+            if (existingUser == null)
+            {
+                var newUser = new User
+                {
+                    UserName = userName,
+                    Email = email,
+                    EmailConfirmed = true,
+                };
+
+                var result = await userManager.CreateAsync(newUser, password);
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(newUser, role.ToString());
+                    Console.WriteLine($"{userName} user created and added to {role} role successfully.");
+                }
+                else Console.WriteLine($"Error creating {userName} user: {string.Join(", ", result.Errors)}");
+            }
+            else Console.WriteLine($"{userName} user already exists.");
+        }
+
+
     }
 }

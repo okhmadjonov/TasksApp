@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TasksControllerApp.Models.LoginViewModel;
-using TasksControllerApp.Models.RegisterViewModel;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using TasksControllerApp.Entities.LoginViewModel;
+using TasksControllerApp.Entities.RegisterViewModel;
+using TasksControllerApp.Models;
+
 using TasksControllerApp.Services;
 
 namespace TasksControllerApp.Controllers
@@ -8,19 +11,24 @@ namespace TasksControllerApp.Controllers
     public class AccountController : Controller
     {
         private readonly AccountService _accountService;
+        private readonly SignInManager<User> _signInManager;
 
-
-        public AccountController(AccountService accountService)
+        public AccountController(AccountService accountService, SignInManager<User> signInManager)
         {
             _accountService = accountService;
+            _signInManager = signInManager;
         }
 
-        [HttpGet]
         public IActionResult Login()
         {
             TempData.Clear();
-            var response = new LoginViewModel();
-            return View(response);
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            TempData.Clear();
+            return View("Register");
         }
 
         [HttpPost]
@@ -34,7 +42,7 @@ namespace TasksControllerApp.Controllers
                 return View();
             }
 
-            var (isAuthenticated, userRole, userId, username) = await _accountService.CheckUserAsync(loginViewModel.Email, loginViewModel.Password);
+            var (isAuthenticated, user) = await _accountService.CheckUserAsync(loginViewModel.Email, loginViewModel.Password);
 
             if (!isAuthenticated)
             {
@@ -42,16 +50,8 @@ namespace TasksControllerApp.Controllers
                 return View();
             }
 
-            return RedirectToAction("Index", "Tasks", new { role = userRole, id = userId, userName = username });
-
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            TempData.Clear();
-            var response = new RegisterViewModel();
-            return View(response);
+            await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+            return RedirectToAction("Index", "Task");
         }
 
         [HttpPost]
@@ -61,7 +61,7 @@ namespace TasksControllerApp.Controllers
             if (validationError != "success")
             {
                 TempData["Error"] = validationError;
-                return View();
+                return View("Register");
             }
 
             var isAuthenticated = await _accountService.CheckUser(model.Email);
@@ -69,19 +69,51 @@ namespace TasksControllerApp.Controllers
             if (isAuthenticated)
             {
                 TempData["Error"] = "User with this email already exists";
-                return View();
+                return View("Register");
             }
 
             await _accountService.RegisterUser(model);
 
             ViewBag.Success = "Registration successful! You will be redirected to the login page in 3 seconds.";
 
-            return View();
+            return View("Register");
         }
 
         [HttpGet]
-        public IActionResult Logout()
+        public IActionResult AddUserIndex()
         {
+            return View("AddUser");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddUser(RegisterViewModel model, string role)
+        {
+            var validationError = _accountService.HandleModelStateErrors(ModelState, "Please enter valid data.");
+            if (validationError != "success")
+            {
+                TempData["Error"] = validationError;
+                return View("AddUser");
+            }
+
+            var isAuthenticated = await _accountService.CheckUser(model.Email);
+
+            if (isAuthenticated)
+            {
+                TempData["Error"] = "User with this email already exists";
+                return View("AddUser");
+            }
+            await _accountService.AddUser(model, role);
+
+            ViewBag.Success = "Registration successful! You will be redirected to the task page in 3 seconds.";
+
+            return View("AddUser");
+        }
+
+        [HttpGet]
+        public async Task<RedirectToActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
     }

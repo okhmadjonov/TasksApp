@@ -2,6 +2,8 @@
 using System;
 using TasksControllerApp.DataContext;
 using TasksControllerApp.Dto;
+using TasksControllerApp.Entities;
+using TasksControllerApp.Entities.TaskViewModel;
 using TasksControllerApp.Models;
 using TasksControllerApp.Repositories;
 
@@ -10,12 +12,10 @@ namespace TasksControllerApp.Services
     public class TaskItemService : ITaskItemRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly IConfiguration _configuration;
 
-        public TaskItemService(ApplicationDbContext context, IConfiguration configuration)
+        public TaskItemService(ApplicationDbContext context)
         {
             _context = context;
-            _configuration = configuration;
         }
 
         public async Task<List<TaskItem>> GetAll()
@@ -23,69 +23,52 @@ namespace TasksControllerApp.Services
             return await _context.Tasks.ToListAsync();
         }
 
-        public async Task<TaskItem> Get(string id)
+        public async Task<TaskItem> Get(int id)
         {
-            var product = await _context.Tasks.FirstOrDefaultAsync(p => p.Id == id);
-            return product ?? throw new BadHttpRequestException("Task not found.");
+            var task = await _context.Tasks.FirstOrDefaultAsync(p => p.Id == id);
+            return task ?? throw new BadHttpRequestException("Task not found.");
         }
 
-        public async Task Add(string userId, string userName, TaskItemDto taskDto)
+        public async System.Threading.Tasks.Task Add(TaskViewModel taskViewModel, string userId, string username)
         {
-            var task = new TaskItem
+            TaskItem task = new TaskItem
             {
-                Title = taskDto.Title,
-                Description = taskDto.Description,
-                DueDate = taskDto.DueDate,
-                Status = (Models.TaskStatus)taskDto.Status,
-                
+                Title = taskViewModel.Title,
+                Description = taskViewModel.Description,
+                Status = taskViewModel.Status,
+                DueDate = DateTime.SpecifyKind(taskViewModel.DueDate, DateTimeKind.Utc)
             };
             _context.Tasks.Add(task);
-            await _context.SaveChangesAsync(userId, userName);
+            await _context.SaveChangesAsync(userId, username);
         }
 
-
-        public async Task Update(string userId, string userName, string id, TaskItemDto taskDto)
+        public async System.Threading.Tasks.Task Update(int id, TaskViewModel taskViewModel, string userId, string username)
         {
-           
             var task = await _context.Tasks.FirstOrDefaultAsync(p => p.Id == id);
-            if (task is not null)
-            {
-                task.Title= taskDto.Title;
-                task.Description= taskDto.Description;
-                task.DueDate= taskDto.DueDate;
-                task.Status = (Models.TaskStatus)taskDto.Status;
-                _context.Entry(task).State = EntityState.Modified;
-                await _context.SaveChangesAsync(userId, userName);
-            }
-            else
+
+            if (task is null)
             {
                 throw new BadHttpRequestException("Task not found");
             }
+
+            task.Title = taskViewModel.Title;
+            task.Description = taskViewModel.Description;
+            task.Status = taskViewModel.Status;
+            task.DueDate = DateTime.SpecifyKind(taskViewModel.DueDate, DateTimeKind.Utc);
+
+            _context.Entry(task).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync(userId, username);
         }
 
-        public async Task Delete(string userId, string userName, string id)
+        public async System.Threading.Tasks.Task Delete(int id, string userId, string username)
         {
-            var product = await _context.Tasks.FirstOrDefaultAsync(p => p.Id == id);
-            if (product is not null)
+            var task = await _context.Tasks.FirstOrDefaultAsync(p => p.Id == id);
+            if (task is not null)
             {
-                _context.Tasks.Remove(product);
-                await _context.SaveChangesAsync(userId, userName);
+                _context.Tasks.Remove(task);
+                await _context.SaveChangesAsync(userId, username);
             }
-        }
-
-      
-
-        public async Task<RoleTaskDto> RetrieveDto(string userId, string userName, string role)
-        {
-            RoleTaskDto roleTaskDto = new RoleTaskDto()
-            {
-                Id = userId,
-                Name = userName,
-                Role = role,
-                Tasks = await GetAll()
-            };
-
-            return roleTaskDto;
         }
     }
 }

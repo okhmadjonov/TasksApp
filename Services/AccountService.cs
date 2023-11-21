@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TasksControllerApp.Entities.RegisterViewModel;
 using TasksControllerApp.Models;
-using TasksControllerApp.Models.RegisterViewModel;
 using TeamProjectMVC.Entity.Enums;
 
 namespace TasksControllerApp.Services
@@ -24,17 +24,17 @@ namespace TasksControllerApp.Services
             return errorMessages.Count > 0 ? errorMessages[0] : defaultErrorMessage;
         }
 
-        public async Task<(bool IsAuthenticated, string UserRole, string UserId, string UserName)> CheckUserAsync(string email, string password)
+        public async Task<(bool IsAuthenticated, User user)> CheckUserAsync(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, password))
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                return (true, roles.FirstOrDefault(), user.Id, user.UserName)!;
+                return (true, user)!;
             }
 
-            return (false, null, null, null)!;
+            return (false, null)!;
         }
 
         public async Task<bool> RegisterUser(RegisterViewModel model)
@@ -46,6 +46,18 @@ namespace TasksControllerApp.Services
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, model.Password);
             await _userManager.AddToRoleAsync(newUser, ERole.USER.ToString());
+            return true;
+        }
+
+        public async Task<bool> AddUser(RegisterViewModel model, string role)
+        {
+            var newUser = new User()
+            {
+                Email = model.Email,
+                UserName = model.Username
+            };
+            var newUserResponse = await _userManager.CreateAsync(newUser, model.Password);
+            await _userManager.AddToRoleAsync(newUser, role);
             return true;
         }
 

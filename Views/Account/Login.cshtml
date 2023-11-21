@@ -1,4 +1,5 @@
-﻿@model TasksControllerApp.Models.LoginViewModel.LoginViewModel
+﻿@model TasksControllerApp.Entities.LoginViewModel.LoginViewModel;
+
 @{
     Layout = null;
 }
@@ -9,32 +10,32 @@
 </head>
 
 <body translate="no">
-<form asp-controller="Account" asp-action="Login" method="post" enctype="multipart/form-data" class="col-md-6" style="margin: 5px auto;">
-    <div class="login-box">
-        <h1> <i class="fa fa-user" aria-hidden="true"></i> &nbsp;  Login</h1>
-        @if (TempData["Error"] != null)
-        {
-            <p class="col-md-12 btn btn-danger" style="color:red;">
-                <span id="errorSpan"><b>Sorry!</b> - @TempData["Error"]</span>
-            </p>
-        }
-        <div class="textbox">
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-   
-            <input class="form-control" autocomplete="off" placeholder="Email" name="Email" />
+    <form asp-controller="Account" asp-action="Login" method="post" enctype="multipart/form-data" class="col-md-6" style="margin: 5px auto;">
+        <div class="login-box">
+            <h1> <i class="fa fa-user" aria-hidden="true"></i> &nbsp;  Login</h1>
+            @if (TempData["Error"] != null)
+            {
+                <p class="col-md-12 btn btn-danger" style="color:red;">
+                    <span id="errorSpan"><b>Sorry!</b> - @TempData["Error"]</span>
+                </p>
+            }
+            <div class="textbox">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                <input class="form-control" autocomplete="off" placeholder="Email" name="Email" />
+            </div>
+
+            <div class="textbox">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+
+                <input asp-for="Password" class="form-control" autocomplete="off" type="password" placeholder="Password" />
+
+
+            </div>
+            <button asp-controller="Account" asp-action="Login" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
+                <i class="fa fa-sign-in mr-1"></i>  &nbsp; Login
+            </button>
+            <p class="registerLink">Do not have an account ?  <a asp-controller="Account" asp-action="Register">Register here</a></p>
         </div>
-
-        <div class="textbox">
-            <i class="fa fa-lock" aria-hidden="true"></i>
-               
-            <input asp-for="Password" class="form-control" autocomplete="off" type="password" placeholder="Password" />
-
-               
-        </div> 
-        <button asp-controller="Account" asp-action="Login" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
-            <i class="fa fa-sign-in mr-1"></i>  &nbsp; Login
-        </button>
-        <p class="registerLink">Do not have an account ?  <a asp-controller="Account" asp-action="Register">Register here</a></p>
-    </div>
-</form>
+    </form>
 </body>

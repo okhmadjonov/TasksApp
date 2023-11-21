@@ -50,19 +50,19 @@ namespace TasksControllerApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "25e7b66f-5932-484e-b969-016c47102c2d",
+                            Id = "f9c8908c-74c4-4b0a-9bd6-5d21f66da75e",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9010eaf2-1ea1-4a38-b1a7-41cf8eb2b1e7",
+                            Id = "61877bfc-38a1-4c65-a170-3f879da95b21",
                             Name = "MANAGER",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "2740a5bc-7f8b-4515-9bc9-606a13cad8ae",
+                            Id = "6cecedc7-3ed4-4473-9d2a-df39fd2229c1",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -174,7 +174,7 @@ namespace TasksControllerApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TasksControllerApp.Models.Audit", b =>
+            modelBuilder.Entity("TasksControllerApp.Entities.Audit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -214,16 +214,19 @@ namespace TasksControllerApp.Migrations
                     b.ToTable("AuditLogs");
                 });
 
-            modelBuilder.Entity("TasksControllerApp.Models.TaskItem", b =>
+            modelBuilder.Entity("TasksControllerApp.Entities.TaskItem", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset>("DueDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")

@@ -1,0 +1,154 @@
+﻿@using NonFactors.Mvc.Grid
+@model List<TasksControllerApp.Entities.TaskItem>
+@{
+    Layout = null;
+}
+
+<link href="~/css/mvc-grid/mvc-grid.css" rel="stylesheet">
+<link href="~/css/task.css" rel="stylesheet">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="bg__cover"></div>
+            <div>
+                <h1 class="text-center mt-3">Tasks' Control App</h1>
+            </div>
+            <div style="display:flex ;flex-direction:row; gap:20px; align-items:center">
+                @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("MANAGER") || User.IsInRole("ADMIN"))
+                {
+                    <div class="add__btn-div">
+                        <button id="add-btn" class="btn btn-info" >Add Task</button>
+                    </div>
+
+                }
+                @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("ADMIN"))
+                {
+                    <div style="margin:10px">
+                        <a style="padding:8px 50px; text-decoration:none" class="btn btn-success" asp-action="AddUserIndex" asp-controller="Account">Add User</a>
+                    </div>
+                    <div style="margin:10px">
+                        <a style="padding:8px 50px; text-decoration:none" class="btn btn-danger" asp-action="Index" asp-controller="Audit">Audit</a>
+                    </div>
+                }
+
+                <div style="margin:10px">
+                    <a style="padding:8px 50px; text-decoration:none" class="btn btn-warning" asp-action="LogOut" asp-controller="Account">Log Out</a>
+                </div>
+            </div>
+            <div class="task-table">
+                @(
+        Html.Grid(Model).Build(columns =>
+        {
+            columns.Add(model => model.Id).Titled("Id").Filterable(false).Sortable(false);
+            columns.Add(model => model.Title).Titled("Title").Filterable(false).Sortable(false);
+            columns.Add(model => model.Description).Titled("Description").Filterable(false).Sortable(false);
+            columns.Add(model => model.DueDate).Titled("DueDate").Filterable(false).Sortable(false);
+            columns.Add(model => model.Status).Titled("Status").Filterable(false).Sortable(false);
+            if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("ADMIN"))
+            {
+                columns.Add().Titled("Actions").RenderedAs(model =>
+                {
+                    return $@"
+                            <button type='button' class='btn btn-primary bg-warning' onclick='updateForm({model.Id})'>Update</button>
+                            <button type='button' class='btn btn-primary bg-danger' onclick='deleteForm({model.Id})'>Delete</button>";
+                }).Encoded(false);
+            }
+        }).Sortable().Pageable()
+        )
+            </div>
+
+            <form id="add-form" action="@Url.Action("Create", "Task")" method="post">
+                <div id="modalAdd">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Add</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="title">Title</label>
+                        <input name="Title" id="title" type="text" class="form-control w-100 px-3" required />
+                        <label for="description">Description</label>
+                        <input name="Description" id="description" type="text" class="form-control w-100 px-3" required />
+                        <label for="duedate">DueDate</label>
+                        <input type="date" id="duedate" name="DueDate" class="form-control w-100 px-3" required>
+                        <label for="status">Status</label>
+                        <select id="status" name="Status" class="form-control w-100 px-3" required>
+                            <option value="">Select status</option>
+                            <option value="Created"> Created</option>
+                            <option value="InProgress">In Progress</option>
+                            <option value="Completed">Completed</option> 
+                        </select>
+                        <div class="moda-footer">
+                            <button type="submit" class="w-100 btn btn-outline-warning">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="update-form" action="@Url.Action("Update", "Task")" method="post">
+                <div id="modalUpdate">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-warning">Update</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="updateId" name="id" />
+                        <label for="titleUpdate">Title</label>
+                        <input name="Title" id="titleUpdate" type="text" class="form-control w-100 px-3" value="c" required />
+                        <label for="descriptionUpdate">Description</label>
+                        <input name="Description" id="descriptionUpdate" type="text" class="form-control w-100 px-3" required />
+                        <label for="duedateUpdate">DueDate</label>
+                        <input type="date" id="duedateUpdate" name="DueDate" class="form-control w-100 px-3" required>
+                        <label for="statusUpdate">Status</label>
+                        <select id="statusUpdate" name="Status" class="form-control w-100 px-3" required>
+                            <option value="">Select status</option>
+                            <option value="Created">Created</option>
+                            <option value="InProgress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <div class="moda-footer">
+                            <button type="submit" class="w-100 btn btn-outline-warning">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="delete-form" action="@Url.Action("Delete", "Task")" method="post">
+                <div id="modalDelete">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Add</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="deleteId" name="id" />
+                        <h1>Do you want to delete ?</h1>
+                        <div class="moda-footer">
+                            <button type="submit" class="w-100 btn btn-outline-danger bg-danger text-white">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var tasks = @Html.Raw(Json.Serialize(Model));
+    function updateForm(id) {
+        console.log("here");
+        console.log(tasks);
+        var foundTask = tasks.find(task => task.id === id);
+        if (foundTask) {
+            const form = document.querySelector('#modalUpdate');
+            cover.classList.add("bg__cover");
+
+            document.getElementById('titleUpdate').value = foundTask.title;
+            document.getElementById('updateId').value = foundTask.id;
+            document.getElementById('descriptionUpdate').value = foundTask.description;
+            form.classList.add('openModal');
+        }
+    }
+</script>
+<script src="~/js/mvc-grid/mvc-grid.js"></script>
+<script src="~/js/task.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

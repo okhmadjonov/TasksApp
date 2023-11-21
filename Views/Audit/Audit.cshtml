@@ -1,0 +1,101 @@
+﻿@model IEnumerable<TasksControllerApp.Entities.Audit>
+@{
+    Layout = null;
+    ViewData["Title"] = "Audit";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/audit.css" />
+
+<div class="table-responsive mt-5">
+    <div class="d-flex justify-content-between align-items-center">
+
+        <form method="post" style="margin-left: 10px" action="@Url.Action("FilterAuditLog", "Audit")">
+            <label class="text-white" for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" />
+
+            <label class="text-white" for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" />
+
+            <button type="submit" onclick="saveDates()">Apply Filter</button>
+        </form>
+
+        <div style="margin-right:10px">
+            <a asp-controller="Task" asp-action="Index" onclick="Clear()" class="btn btn-warning">Back</a>
+            <button class="btn bg-warning" onclick="redirectToSwagger()">Swagger</button>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="auditTable" style="width:100vw">
+        <thead>
+            <tr>
+                <th class="text-dark" style="width:50px; text-align: center;">Id</th>
+                <th class="text-dark" style="width: 100px">User</th>
+                <th class="text-dark" style="width: 100px;">Type</th>
+                <th class="text-dark" class="text-dark" style="width: 100px;">Table Name</th>
+                <th class="text-dark" style="width: 100px;">Date Time</th>
+                <th class="text-dark" style="width: 200px;">Old values</th>
+                <th class="text-dark" style="width: 200px;"> New Values</th>
+                <th class="text-dark" style="width: 200px;">Affected Columns</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    <td class="text-dark"> <p class="asdfg" style="width: 50px;  overflow:visible; text-align:center;">@Html.DisplayFor(modelItem => item.Id)</p> </td>
+                    <td class="text-dark"> <p style="width: 100px; overflow:visible;">@Html.DisplayFor(modelItem => item.UserName)</p></td>
+                    <td class="text-dark"> <p style="width: 100px; overflow:visible;">@Html.DisplayFor(modelItem => item.Type)</p></td>
+                    <td class="text-dark"> <p style="width: 100px; overflow:visible;">@Html.DisplayFor(modelItem => item.TableName)</p></td>
+                    <td class="text-dark"> <p style="width: 150px; overflow:visible;">@Html.DisplayFor(modelItem => item.DateTime)</p></td>
+                    <td class="text-dark"> <p class="asdfg" style="width: 200px; overflow:overlay;">@Html.DisplayFor(modelItem => item.OldValues)</p></td>
+                    <td class="text-dark"> <p class="asdfg" style="width: 200px; overflow:overlay;">@Html.DisplayFor(modelItem => item.NewValues)</p></td>
+                    <td class="text-dark"> <p class="asdfg" style="width: 200px; overflow:overlay;">@Html.DisplayFor(modelItem => item.AffectedColumns)</p></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function redirectToSwagger() {
+        window.location.href = "https://localhost:7299/swagger/index.html";
+    }
+</script>
+<script>
+    function Clear() {
+        console.log("here")
+        sessionStorage.clear();
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var savedStartDate = sessionStorage.getItem('savedStartDate');
+        var savedEndDate = sessionStorage.getItem('savedEndDate');
+
+        if (savedStartDate) {
+            document.getElementById('startDate').value = savedStartDate;
+        }
+
+        if (savedEndDate) {
+            document.getElementById('endDate').value = savedEndDate;
+
+            
+            document.getElementById('endDate').min = savedStartDate;
+        }
+    });
+
+    
+    function saveDates() {
+        var startDateValue = document.getElementById('startDate').value;
+        var endDateValue = document.getElementById('endDate').value;
+
+       
+        sessionStorage.setItem('savedStartDate', startDateValue);
+        sessionStorage.setItem('savedEndDate', endDateValue);
+    }
+
+    
+    document.getElementById('startDate').addEventListener('change', function () {
+        var startDateValue = this.value;
+        document.getElementById('endDate').min = startDateValue;
+    });
+</script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="~/js/audit.js"></script>

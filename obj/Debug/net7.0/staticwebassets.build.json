@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lDUThLgi5AYzkOvWQFVWjsDh3qJrpZH7YxUdEUCtn4g=",
+  "Hash": "xqZZSqeDOTC/tvGnY87IlSBo2inwADXjuZ08/EzTV3o=",
   "Source": "TasksControllerApp",
   "BasePath": "_content/TasksControllerApp",
   "Mode": "Default",
@@ -1071,12 +1071,12 @@
       "OriginalItemSpec": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\TasksControllerApp.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\Audit.css",
+      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\audit.css",
       "SourceId": "TasksControllerApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\",
       "BasePath": "_content/TasksControllerApp",
-      "RelativePath": "css/Audit.css",
+      "RelativePath": "css/audit.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1085,24 +1085,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\Audit.css"
-    },
-    {
-      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\audittype.css",
-      "SourceId": "TasksControllerApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\",
-      "BasePath": "_content/TasksControllerApp",
-      "RelativePath": "css/audittype.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\audittype.css"
+      "OriginalItemSpec": "wwwroot\\css\\audit.css"
     },
     {
       "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\login.css",
@@ -1122,12 +1105,12 @@
       "OriginalItemSpec": "wwwroot\\css\\login.css"
     },
     {
-      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\registration.css",
+      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\mvc-grid\\fonts\\grid-glyphs.woff",
       "SourceId": "TasksControllerApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\",
       "BasePath": "_content/TasksControllerApp",
-      "RelativePath": "css/registration.css",
+      "RelativePath": "css/mvc-grid/fonts/grid-glyphs.woff",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1136,7 +1119,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\registration.css"
+      "OriginalItemSpec": "wwwroot\\css\\mvc-grid\\fonts\\grid-glyphs.woff"
+    },
+    {
+      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\mvc-grid\\mvc-grid.css",
+      "SourceId": "TasksControllerApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\",
+      "BasePath": "_content/TasksControllerApp",
+      "RelativePath": "css/mvc-grid/mvc-grid.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\mvc-grid\\mvc-grid.css"
     },
     {
       "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\site.css",
@@ -1154,6 +1154,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\css\\task.css",
+      "SourceId": "TasksControllerApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\",
+      "BasePath": "_content/TasksControllerApp",
+      "RelativePath": "css/task.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\task.css"
     },
     {
       "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\favicon.ico",
@@ -1190,12 +1207,12 @@
       "OriginalItemSpec": "wwwroot\\js\\audit.js"
     },
     {
-      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\index.js",
+      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\mvc-grid\\mvc-grid.js",
       "SourceId": "TasksControllerApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\",
       "BasePath": "_content/TasksControllerApp",
-      "RelativePath": "js/index.js",
+      "RelativePath": "js/mvc-grid/mvc-grid.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1204,7 +1221,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\index.js"
+      "OriginalItemSpec": "wwwroot\\js\\mvc-grid\\mvc-grid.js"
     },
     {
       "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\site.js",
@@ -1224,12 +1241,12 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\Table.js",
+      "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\js\\task.js",
       "SourceId": "TasksControllerApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\",
       "BasePath": "_content/TasksControllerApp",
-      "RelativePath": "js/Table.js",
+      "RelativePath": "js/task.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1238,7 +1255,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\Table.js"
+      "OriginalItemSpec": "wwwroot\\js\\task.js"
     },
     {
       "Identity": "C:\\Users\\nemo\\Desktop\\TasksControllerApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
